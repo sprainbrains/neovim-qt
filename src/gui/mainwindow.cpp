@@ -178,10 +178,18 @@ void MainWindow::updateStyle()
 
 void MainWindow::setNewPalette() {
 
-    	m_window->setPalette(m_palette);
-    	m_tree->setPalette(m_palette);
-    	m_tabline_bar->setPalette(m_palette);
-    	m_tabline->setPalette(m_palette);
+        if (m_window!= nullptr)
+            m_window->setPalette(m_palette);
+
+        if (m_tree!= nullptr)
+            m_tree->setPalette(m_palette);
+
+        if (m_tabline_bar!= nullptr)
+            m_tabline_bar->setPalette(m_palette);
+
+        if (m_tabline != NULL)
+            m_tabline->setPalette(m_palette);
+
     	setPalette(m_palette);
 }
 
@@ -402,7 +410,7 @@ void MainWindow::neovimTablineUpdate(int64_t curtab, QList<Tab> tabs)
 		// Escape & in tab name otherwise it will be interpreted as
 		// a keyboard shortcut (#357) - escaping is done using &&
 		QString text = tabs[index].name;
-		text.replace("&", "&&");
+                text.replace("&", "&&");
 
 		if (m_tabline->count() <= index) {
 			m_tabline->addTab(text);

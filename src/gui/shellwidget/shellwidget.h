@@ -40,7 +40,7 @@ public slots:
 	void setBackground(const QColor& color);
 	void setForeground(const QColor& color);
 	void setDefaultFont();
-	int put(const QString&, int row, int column,
+        int put(const QString&, int row, int column,
 			QColor fg=QColor(), QColor bg=QColor(), QColor sp=QColor(),
 			bool bold=false, bool italic=false,
 			bool underline=false, bool undercurl=false);
@@ -54,6 +54,7 @@ public slots:
 protected:
 	virtual void paintEvent(QPaintEvent *ev) Q_DECL_OVERRIDE;
 	virtual void resizeEvent(QResizeEvent *ev) Q_DECL_OVERRIDE;
+
 
 	void setCellSize();
 	QRect absoluteShellRect(int row0, int col0, int rowcount, int colcount);

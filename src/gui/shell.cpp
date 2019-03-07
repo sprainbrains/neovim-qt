@@ -1021,6 +1021,7 @@ void Shell::updateWindowId()
 	if (m_attached &&
 		m_nvim->connectionType() == NeovimConnector::SpawnedConnection) {
 		WId window_id = effectiveWinId();
+                qDebug() << "Update winId" << window_id;
 		m_nvim->api0()->vim_set_var("GuiWindowId", QVariant(window_id));
 		m_nvim->api0()->vim_command(QString("let v:windowid = %1").arg(window_id).toLatin1());
 		updateClientInfo();
@@ -1058,6 +1059,7 @@ bool Shell::event(QEvent *event)
 		updateWindowId();
 	}
 
+        qDebug() << event->type();
 	return QWidget::event(event);
 }
 
@@ -1162,6 +1164,10 @@ void Shell::focusInEvent(QFocusEvent *ev)
 		// See neovim-qt/issues/329 the FocusGained key no longer exists, use autocmd instead
 		m_nvim->api0()->vim_command("if exists('#FocusGained') | doautocmd FocusGained | endif");
 	}
+        if (m_nvim->api0() != nullptr) {
+            m_nvim->api0() ->vim_get_windows();
+        }
+        qDebug() << "in " << ev->type() << " " << ev->reason();
 	QWidget::focusInEvent(ev);
 }
 
@@ -1170,6 +1176,7 @@ void Shell::focusOutEvent(QFocusEvent *ev)
 	if (m_attached) {
 		m_nvim->api0()->vim_command("if exists('#FocusLost') | doautocmd FocusLost | endif");
 	}
+        qDebug() << "out " << ev->type() << " " << ev->reason();
 	QWidget::focusOutEvent(ev);
 }
 

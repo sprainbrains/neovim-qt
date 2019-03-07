@@ -225,7 +225,7 @@ void ShellWidget::resizeEvent(QResizeEvent *ev)
 	int cols = ev->size().width() / m_cellSize.width();
 	int rows = ev->size().height() / m_cellSize.height();
 	resizeShell(rows, cols);
-	QWidget::resizeEvent(ev);
+        QWidget::resizeEvent(ev);
 }
 
 QSize ShellWidget::sizeHint() const
